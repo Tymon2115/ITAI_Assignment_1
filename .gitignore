@@ -1,0 +1,85 @@
+# Ignore Visual Studio Code settings
+.vscode/
+
+# Ignore build output and dependencies
+bin/
+obj/
+out/
+TestResults/
+*.cache
+*.nupkg
+*.snupkg
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore Rider/JetBrains files
+.idea/
+*.sln.iml
+
+# Ignore .NET Core and .NET Framework build artifacts
+project.lock.json
+project.assets.json
+project.json
+packages/
+*.log
+*.pdb
+
+# Ignore compiled binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.app
+
+# Ignore NuGet packages and dependencies
+.nuget/
+packages/
+!packages/repositories.config
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+
+# Ignore .NET-generated files
+*.props
+*.targets
+*.csproj.user
+*.csproj.nuget.g.props
+*.csproj.nuget.g.targets
+
+# Ignore coverage and analysis files
+coverage/
+*.coverage
+*.coveragexml
+*.coveragejson
+*.lcov
+*.trx
+*.xml
+*.code-workspace
+
+# Ignore debugging files
+*.mdb
+*.ilk
+*.idb
+*.ipch
+*.pdb
+
+# Ignore Python venv (if using Python for scripts)
+venv/
+__pycache__/
+
+# Ignore secrets and credentials
+secrets.json
+appsettings.json
+appsettings.Development.json
+
+# Ignore Logs
+logs/
+*.log
