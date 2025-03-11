@@ -11,6 +11,9 @@ namespace ITAI_Assignemnt_1.game
     {
         // player 1(0) 0-5 and 6 as store, player 2(1) 7-12 and 13 as store
         private int[] _board = new int[14];
+        
+        // Returns a copy to prevent external modification, but the access to it is
+        public int[] Board => _board.ToArray(); 
         public int CurrentPlayer { get; set; }
 
         public KalahaState()

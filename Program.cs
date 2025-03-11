@@ -1,2 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using ITAI_Assignemnt_1.game;
+
+class Program
+{
+     public static void Main(string[] args)
+    {
+      Engine engine = new Engine();
+      engine.Start();
+        
+    }
+}
