@@ -7,6 +7,7 @@ public class Engine
 
     private KalahaState _state = new KalahaState();
     private TerminalInterface _terminal = new TerminalInterface();
+    private IKalahaAI _kalahaAi = new MinimaxAi();
     
     public void Start()
     {
@@ -14,20 +15,10 @@ public class Engine
         while (!_state.IsTerminal()){
             _terminal.DisplayBoard(_state);
             _state.ApplyMove(_terminal.GetUserMove(_state));
+            _terminal.DisplayBoard(_state);
+            _state.ApplyMove(_kalahaAi.GetAiMove(_state));
             }
            
         
     }
-
-    
-    //this should be done using strategy pattern so we can swap out different AIs easily
-    public int getAiMove(KalahaState state)
-    {
-        return 1;
-    }
-    
-
-
-
-
 }
