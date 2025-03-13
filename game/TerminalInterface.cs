@@ -129,7 +129,7 @@ namespace ITAI_Assignment_1.Game
     
     
     
-    /// <summary>
+   
     /// Displays the player prompt in place (without creating new lines).
     /// It moves the cursor back each time to overwrite the previous prompt.
     /// </summary>
@@ -139,27 +139,64 @@ namespace ITAI_Assignment_1.Game
     {
         while (true)
         {
-            // Move cursor back to the fixed position
-            Console.SetCursorPosition(0, _promptCursorTop);
-            Console.Write(new string(' ', Console.WindowWidth)); // Clear previous input line
-            Console.SetCursorPosition(0, _promptCursorTop); // Reset cursor to input position
-
-            // Display the prompt
-            AnsiConsole.Markup("[bold yellow]Select a pit:[/] ");
+            ClearPromptLine();  
+            ShowPrompt(); 
 
             // Read user input
             string? input = Console.ReadLine();
-                
+
+            // Clear any previous error before validating
+            ClearError();
+
             // Try parsing and validating input
             if (int.TryParse(input, out int pit) && state.GetPossibleMoves().Contains(pit))
             {
                 return pit; // Return valid move
             }
 
-            // If invalid, show error message but keep the prompt in place
-            Console.SetCursorPosition(0, _promptCursorTop + 1);
-            AnsiConsole.MarkupLine("[bold red]Invalid pit. Try again.[/]");
+            // Show error if invalid
+            ShowError("[bold red]Invalid pit. Try again.[/]");
         }
     }
-}
+
+    /// <summary>
+    /// Moves the cursor to the prompt line, clears any previous text,
+    /// and sets the cursor to that position for input.
+    /// </summary>
+    private void ClearPromptLine()
+    {
+        Console.SetCursorPosition(0, _promptCursorTop);
+        Console.Write(new string(' ', Console.WindowWidth)); // Clear previous line
+        Console.SetCursorPosition(0, _promptCursorTop);      // Reset cursor for new input
+    }
+
+    /// <summary>
+    /// Writes the "Select a pit:" prompt at the current cursor position.
+    /// </summary>
+    private void ShowPrompt()
+    {
+        AnsiConsole.Markup("[bold yellow]Select a pit:[/] ");
+    }
+
+    /// <summary>
+    /// Displays an error message below the prompt line.
+    /// </summary>
+    /// <param name="message">The error message to display</param>
+    private void ShowError(string message)
+    {
+        // Show error one line below the prompt
+        Console.SetCursorPosition(0, _promptCursorTop + 1);
+        AnsiConsole.MarkupLine(message);
+    }
+
+    /// <summary>
+    /// Clears the error line by overwriting it with spaces.
+    /// </summary>
+    private void ClearError()
+    {
+        Console.SetCursorPosition(0, _promptCursorTop + 1);
+        Console.Write(new string(' ', Console.WindowWidth));
+        Console.SetCursorPosition(0, _promptCursorTop + 1);
+    }
+    }
 }

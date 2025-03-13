@@ -13,11 +13,20 @@ public class Engine
     {
         
         while (!_state.IsTerminal()){
-            _terminal.DisplayBoard(_state);
-            _state.ApplyMove(_terminal.GetUserMove(_state));
-            _terminal.DisplayBoard(_state);
-            _state.ApplyMove(_kalahaAi.GetAiMove(_state));
+
+            if (_state.CurrentPlayer ==0)
+            {
+                _terminal.DisplayBoard(_state);
+                _state.ApplyMove(_terminal.GetUserMove(_state));
             }
+
+            if (_state.CurrentPlayer == 1)
+            {
+                _terminal.DisplayBoard(_state);
+                _state.ApplyMove(_kalahaAi.GetAiMove(_state));
+            }
+            }
+        _terminal.DisplayBoard(_state);
            
         
     }
