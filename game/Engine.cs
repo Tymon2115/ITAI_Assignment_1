@@ -7,7 +7,7 @@ public class Engine
 
     private KalahaState _state = new KalahaState();
     private TerminalInterface _terminal = new TerminalInterface();
-    private IKalahaAI _kalahaAi = new MinimaxAi();
+    private IKalahaAI _kalahaAi = new AlphaBetaAi();
     
     public void Start()
     {
