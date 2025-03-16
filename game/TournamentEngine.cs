@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using ITAI_Assignemnt_1.game;
 
@@ -17,30 +18,39 @@ public class TournamentEngine
     public void RunTournament()
     {
         int wins0 = 0, wins1 = 0, draws = 0;
-        long totalMoveTimeTicks = 0;
-        int totalMoves = 0;
+        long totalMoveTimeTicks0 = 0;
+        long totalMoveTimeTicks1 = 0;
+        int totalMoves0 = 0;
+        int totalMoves1 = 0;
 
         for (int game = 0; game < numGames; game++)
         {
             KalahaState state = new KalahaState();
-            // Optionally alternate who starts
             state.CurrentPlayer = game % 2; 
 
             while (!state.IsTerminal())
             {
-                IKalahaAI currentAI = state.CurrentPlayer == 0 ? player0 : player1;
-
-                // Measure the move time
                 Stopwatch sw = Stopwatch.StartNew();
-                int move = currentAI.GetAiMove(state.Clone()); 
-                sw.Stop();
-                totalMoveTimeTicks += sw.ElapsedTicks;
-                totalMoves++;
+                int move;
+                
+                if (state.CurrentPlayer == 0)
+                {
+                    move = player0.GetAiMove(state.Clone());
+                    sw.Stop();
+                    totalMoveTimeTicks0 += sw.ElapsedTicks;
+                    totalMoves0++;
+                }
+                else
+                {
+                    move = player1.GetAiMove(state.Clone());
+                    sw.Stop();
+                    totalMoveTimeTicks1 += sw.ElapsedTicks;
+                    totalMoves1++;
+                }
 
                 state.ApplyMove(move);
             }
 
-            // Determine game result
             int[] board = state.Board;
             int player0Score = board[6];
             int player1Score = board[13];
@@ -51,16 +61,20 @@ public class TournamentEngine
                 wins1++;
             else
                 draws++;
-
-            Console.WriteLine($"Game {game + 1}: {player0Score} - {player1Score}");
+        
+        
+        Console.WriteLine($"Game {game + 1}: Player 0: {player0Score}, Player 1: {player1Score}");
         }
 
-        double avgMoveTimeMs = (totalMoveTimeTicks * 1000.0 / Stopwatch.Frequency) / totalMoves;
+        double avgMoveTimeMs0 = (totalMoveTimeTicks0 * 1000.0 / Stopwatch.Frequency) / totalMoves0;
+        double avgMoveTimeMs1 = (totalMoveTimeTicks1 * 1000.0 / Stopwatch.Frequency) / totalMoves1;
+
         Console.WriteLine("Tournament Results:");
         Console.WriteLine($"Games played: {numGames}");
         Console.WriteLine($"Player 0 wins: {wins0}");
         Console.WriteLine($"Player 1 wins: {wins1}");
         Console.WriteLine($"Draws: {draws}");
-        Console.WriteLine($"Average move time: {avgMoveTimeMs:F2} ms");
+        Console.WriteLine($"Average move time for Player 0: {avgMoveTimeMs0:F2} ms");
+        Console.WriteLine($"Average move time for Player 1: {avgMoveTimeMs1:F2} ms");
     }
 }

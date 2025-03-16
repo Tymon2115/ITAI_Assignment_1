@@ -7,10 +7,10 @@ class Program
         if (args.Length > 0 && args[0] == "tournament")
         {
             // For example, compare Minimax and AlphaBeta
-            // IKalahaAI ai1 = new MinimaxAi();
-            IKalahaAI ai1 = new AlphaBetaAi();
+            IKalahaAI ai1 = new MinimaxAi();
+            // IKalahaAI ai1 = new AlphaBetaAi();
             IKalahaAI ai2 = new AlphaBetaAi();
-            TournamentEngine tournament = new TournamentEngine(ai1, ai2, 10); 
+            TournamentEngine tournament = new TournamentEngine(ai1, ai2, 2); 
             Console.WriteLine("Running tournament...");
             tournament.RunTournament();
         }
