@@ -104,10 +104,43 @@ namespace ITAI_Assignment_1.Game
 
         private int Evaluate(KalahaState state)
         {
-            int[] b = state.Board;
-            int player0Store = b[6];
-            int player1Store = b[13];
-            return player0Store - player1Store;
+            // early end so it dominates
+            if (state.IsTerminal())
+            {
+                int player0Total = state.Board[6] + Enumerable.Range(0, 6).Sum(i => state.Board[i]);
+                int player1Total = state.Board[13] + Enumerable.Range(7, 6).Sum(i => state.Board[i]);
+                return (player0Total - player1Total) * 1000;
+            }
+
+            int[] board = state.Board;
+            int score = 0;
+
+            // store differrence = weight 10
+            int storeDiff = board[6] - board[13];
+            score += storeDiff * 10; 
+
+            // potential = weight 3
+            int player0Seeds = Enumerable.Range(0, 6).Sum(i => board[i]);
+            int player1Seeds = Enumerable.Range(7, 6).Sum(i => board[i]);
+            score += (player0Seeds - player1Seeds) * 3;
+
+            // instant capture = weight 2
+            for (int i = 0; i < 6; i++)
+            {
+                if (board[i] == 0)
+                {
+                    int oppositePit = 12 - i;
+                    score += board[oppositePit] * 2; 
+                }
+            }
+
+            // extra turn = arbitrarry +5
+            for (int i = 0; i < 6; i++)
+            {
+                if (board[i] == (6 - i)) 
+                    score += 5;
+            }
+            return score;
         }
     }
 }
