@@ -4,7 +4,7 @@ using ITAI_Assignemnt_1.game;
 
 namespace ITAI_Assignment_1.Game
 {
-    public class AlphaBetaAi : IKalahaAI
+    public class AlphaBetaAiOldEval : IKalahaAI
     {
         private const int DEFAULT_DEPTH = 10;
 
@@ -102,55 +102,12 @@ namespace ITAI_Assignment_1.Game
             }
         }
 
-        private int Evaluate(KalahaState state)
+       private int Evaluate(KalahaState state)
         {
-            int[] b = state.Board;
+            int[] b = state.Board; // copy of the board
             int player0Store = b[6];
             int player1Store = b[13];
-            int storeDiff = player0Store - player1Store;
-            int player0Stones = b.Take(6).Sum();
-            int player1Stones = b.Skip(7).Take(6).Sum();
-            int stonesDiff = player0Stones - player1Stones;
-            int extraTurnsPlayer0 = 0;
-            for (int i = 0; i < 6; i++)
-            {
-                int stones = b[i];
-                int distanceToStore = 6 - i;
-                if (stones == distanceToStore) extraTurnsPlayer0++;
-            }
-
-            int extraTurnsPlayer1 = 0;
-            for (int i = 7; i < 13; i++)
-            {
-                int stones = b[i];
-                int distanceToStore = 13 - i;
-                if (stones == distanceToStore) extraTurnsPlayer1++;
-            }
-            int extraTurnsDiff = extraTurnsPlayer0 - extraTurnsPlayer1;
-
-            int captureOppositePlayer0 = 0;
-            for (int i = 0; i < 6; i++)
-            {
-                int oppositePit = 12 - i;
-                if (b[i] == 0 && b[oppositePit] > 0) captureOppositePlayer0++;
-            }
-            int captureOppositePlayer1 = 0;
-            for (int i = 7; i < 13; i++)
-            {
-                int oppositePit = 12 - i;
-                if (b[i] == 0 && b[oppositePit] > 0) captureOppositePlayer1++;
-            }
-            int captureDiff = captureOppositePlayer0 - captureOppositePlayer1;
-
-            int emptyPitsPlayer0 = b.Take(6).Count(x => x == 0);
-            int emptyPitsPlayer1 = b.Skip(7).Take(6).Count(x => x == 0);
-            int emptyPitsDiff = (-emptyPitsPlayer0) + emptyPitsPlayer1;
-            // those values are random as a result of testing, everyrthing yields at best tie
-            return storeDiff * 7      
-                + stonesDiff * (-4)     
-                + extraTurnsDiff * 10  
-                + captureDiff * 12     
-                + emptyPitsDiff * (-2);  
+            return player0Store - player1Store;
         }
     }
 }
