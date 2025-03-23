@@ -12,6 +12,8 @@ Selection of which field you want to select is done by entering numbers from 0 t
 To run the game in the AI vs AI mode: 
 
 dotnet run -- tournament
+
+
 <img width="524" alt="image" src="https://github.com/user-attachments/assets/385b2757-7932-4754-b1dc-50e3fae827e9" />
 
 
