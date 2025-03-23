@@ -3,7 +3,7 @@ How to run the game:
 In the player vs AI mode:
 In the terminal navigate to the directory of the game and run this command:
 
-dotnet run (if you run into issues where the playing fields looks distored or has any issues you need to resize your temrinal windows :D )
+dotnet run (if you run into issues where the playing fields looks distored or has any issues you need to resize your temrinal windows :D, also resizing the termilnal window while playing is not recomended)
 <img width="868" alt="image" src="https://github.com/user-attachments/assets/cb0f55e7-e728-4cd2-99d1-354170faa610" />
 
 this will start the game in the terminal and you can now play the game
