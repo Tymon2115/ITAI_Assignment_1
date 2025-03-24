@@ -18,7 +18,8 @@ namespace ITAI_Assignemnt_1.game
 
         public KalahaState()
         {
-            _board = [.. Enumerable.Range(0, 14).Select(i => (i == 6 || i == 13) ? 0 : 4)];
+            int startingStonesInPit = 4;
+            _board = [.. Enumerable.Range(0, 14).Select(i => (i == 6 || i == 13) ? 0 : startingStonesInPit)];
         }
 
         public KalahaState Clone()
@@ -119,9 +120,41 @@ namespace ITAI_Assignemnt_1.game
             }
         }
 
-        public bool IsTerminal()
+        public bool IsTerminal() =>
+            IsPlayer1PitsEmpty() || IsPlayer2PitsEmpty();
+
+        private bool IsPlayer1PitsEmpty() =>
+            SumPits(0, 6) == 0;
+
+        private bool IsPlayer2PitsEmpty() =>
+            SumPits(7, 6) == 0;
+
+        private int SumPits(int start, int count) =>
+            _board.Skip(start).Take(count).Sum();
+
+        private void ClearPits(int start, int count)
         {
-            return _board.Take(6).All(x => x == 0) || _board.Skip(7).Take(6).All(x => x == 0);
+            for (int i = start; i < start + count; i++)
+                _board[i] = 0;
+        }
+
+        private void CollectStonesForPlayer(int pitsStart, int pitsCount, int storeIndex)
+        {
+            int stones = SumPits(pitsStart, pitsCount);
+            ClearPits(pitsStart, pitsCount);
+            _board[storeIndex] += stones;
+        }
+
+        public bool IsFinalized()
+        {
+            if (!IsTerminal()) return false;
+
+            if (IsPlayer1PitsEmpty())
+                CollectStonesForPlayer(7, 6, 13);
+            else if (IsPlayer2PitsEmpty())
+                CollectStonesForPlayer(0, 6, 6);
+
+            return true;
         }
 
         private bool IsStore(int player, int index)

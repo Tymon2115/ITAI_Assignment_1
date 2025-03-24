@@ -14,6 +14,8 @@ To run the game in the AI vs AI mode:
 
 dotnet run -- tournament
 
+This will run a tournament of all AIs - getting an overview of how they perform against eachother.
+
 
 <img width="524" alt="image" src="https://github.com/user-attachments/assets/385b2757-7932-4754-b1dc-50e3fae827e9" />
 

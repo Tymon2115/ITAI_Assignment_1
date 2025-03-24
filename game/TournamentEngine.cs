@@ -28,7 +28,7 @@ public class TournamentEngine
             KalahaState state = new KalahaState();
             state.CurrentPlayer = game % 2; 
 
-            while (!state.IsTerminal())
+            while (!state.IsFinalized())
             {
                 Stopwatch sw = Stopwatch.StartNew();
                 int move;
