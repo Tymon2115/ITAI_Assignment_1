@@ -60,19 +60,31 @@ namespace ITAI_Assignemnt_1.game
                 stones--;
             }
             // this is for capturing the stones of oposite if we land on empty one
-            if (CurrentPlayer == 0 && currentPit < 6 && _board[currentPit] == 1)
+            if (CurrentPlayer == 0 && currentPit < 6 && _board[currentPit] == 1 )
             {
                 int oppositePit = 12 - currentPit;
-                _board[6] += _board[oppositePit] + 1;
-                _board[oppositePit] = 0;
-                _board[currentPit] = 0;
+                if(_board[oppositePit] != 0){
+                    _board[6] += _board[oppositePit] + 1;
+                    _board[oppositePit] = 0;
+                    _board[currentPit] = 0;
+                }else{
+
+                }
+                
             }
-            else if (CurrentPlayer == 1 && currentPit > 6 && currentPit < 13 && _board[currentPit] == 1)
+            else if (CurrentPlayer == 1 && currentPit > 6 && currentPit < 13 && _board[currentPit] == 1 )
             {
                 int oppositePit = 12 - currentPit;
-                _board[13] += _board[oppositePit] + 1;
-                _board[oppositePit] = 0;
-                _board[currentPit] = 0;
+
+                if(_board[oppositePit] != 0){
+                    _board[13] += _board[oppositePit] + 1;
+                    _board[oppositePit] = 0;
+                    _board[currentPit] = 0;
+                }else{
+                    
+                }
+                
+                
             }
             // if we land in own store then we can do one more move
             bool getExtraTurn = false;
